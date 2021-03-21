@@ -1,0 +1,6 @@
+.login-panel  {
+    display: none;
+}
+.login-panel.active {
+    display: block;
+}

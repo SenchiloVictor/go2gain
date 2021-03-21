@@ -3,6 +3,7 @@ const { User } = require('../../../../../db/sequelize');
 const bcrypt = require('bcrypt');
 
 module.exports = async (req, res) => {
+    console.log(req);
 
     const user = await User.findOne({
         where: {
@@ -13,7 +14,9 @@ module.exports = async (req, res) => {
     if (!user) {
 
         return res.status(400).json({
-            'error': 'Credentials invalid'
+            'errors': {
+                'password': ['Credentials invalid']
+            }
         });
     }
 
@@ -25,7 +28,9 @@ module.exports = async (req, res) => {
     if (!isValidPassword) {
 
         return res.status(400).json({
-            'error': 'Credentials invalid'
+            'errors': {
+                'password': ['Credentials invalid']
+            }
         });
     }
 

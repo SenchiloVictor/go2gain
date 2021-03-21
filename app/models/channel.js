@@ -1,45 +1,60 @@
-module.exports = (sequelize, type) => sequelize.define('channels', {
-    id: {
-        type: type.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false
-    },
-    owner_id: {
-        type: type.INTEGER,
-        allowNull: false
-    },
-    title: {
-        type: type.STRING(40),
-        allowNull: false,
-        validate: {
-            len: [2, 40]
+const { Model, DataTypes } = require('sequelize');
+
+const User = require('./user');
+class Channel extends Model {}
+
+module.exports = (sequelize) => {
+    return Channel.init({
+        id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            autoIncrement: true,
+            primaryKey: true,
+            allowNull: false
+        },
+        owner_id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: false,
+            references: {
+                model: 'users',
+                key: 'id'
+            }
+        },
+        title: {
+            type: DataTypes.STRING(40),
+            allowNull: false,
+            validate: {
+                len: [2, 40]
+            }
+        },
+        description: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+            validate: {
+                len: [2, 255]
+            }
+        },
+        status: {
+            type: DataTypes.ENUM([
+                'active',
+                'inactive',
+                'deleted',
+                'blocked',
+                'pending'
+            ]),
+            defaultValue: 'pending'
         }
-    },
-    description: {
-        type: type.STRING(255),
-        allowNull: true,
-        validate: {
-            len: [2, 255]
-        }
-    },
-    status: {
-        type: type.ENUM([
-            'active',
-            'inactive',
-            'deleted',
-            'blocked',
-            'pending'
-        ]),
-        defaultValue: 'pending'
-    }
-}, {
-    indexes: [
-        {
-            using: 'BTREE',
-            fields: [
-                { attribute: 'status' }
-            ]
-        }
-    ]
-});
+    }, {
+        sequelize,
+        modelName: 'channel',
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+        indexes: [
+            {
+                using: 'BTREE',
+                fields: [
+                    {attribute: 'status'}
+                ]
+            }
+        ]
+    });
+}

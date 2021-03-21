@@ -13,4 +13,9 @@ router.use(
     require('./channel')
 );
 
+router.use(
+    '/front',
+    require('./front')
+);
+
 module.exports = router;

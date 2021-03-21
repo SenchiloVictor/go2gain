@@ -2,6 +2,7 @@ const { Sequelize } = require('sequelize');
 
 const UserModel = require('../models/user');
 const ChannelModel = require('../models/channel');
+const ChannelMessageModel = require('../models/channelMessage');
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: 'localhost',
@@ -12,8 +13,9 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     }
 });
 
-const User = UserModel(sequelize, Sequelize);
-const Channel = ChannelModel(sequelize, Sequelize);
+const User = UserModel(sequelize);
+const Channel = ChannelModel(sequelize);
+const ChannelMessage = ChannelMessageModel(sequelize);
 
 sequelize.sync({ force: false })
     .then(() => {
@@ -22,5 +24,6 @@ sequelize.sync({ force: false })
 
 module.exports = {
     User,
-    Channel
+    Channel,
+    ChannelMessage
 }

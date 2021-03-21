@@ -1,0 +1,11 @@
+.header-top-nav li span {
+    color: #fff;
+    cursor: pointer;
+}
+
+.header-top-nav li:hover span,
+.header-top-nav li span.header-top-active,
+.header-top-nav li:hover span i,
+.header-top-nav li span.header-top-active i {
+    color: #2f3239;
+}
