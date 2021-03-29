@@ -22,6 +22,7 @@ const reducer = (state = initialState, action) => {
                 ...{
                     signinRequesting: false,
                     authorized: true,
+                    errors: {},
                     ...action.payload,
                 }
             };
@@ -43,12 +44,15 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ...{
+                    signinRequesting: true,
                     authorized: null,
                     token: null,
                     errors: {}
                 }
             }
+
         default:
+
             return state;
     }
 };

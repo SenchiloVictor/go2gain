@@ -3,7 +3,6 @@ const { User } = require('../../../../../db/sequelize');
 const bcrypt = require('bcrypt');
 
 module.exports = async (req, res) => {
-    console.log(req);
 
     const user = await User.findOne({
         where: {

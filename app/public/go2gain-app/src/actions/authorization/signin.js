@@ -1,6 +1,6 @@
 import axios from "axios";
 import {AUTH_SIGNIN_FAILED, AUTH_SIGNIN_PENDING, AUTH_SIGNIN_SUCCESSFUL} from "../actions";
-
+import {useLocalStorage} from "../../hooks/useLocalStorage";
 
 const signinFailed = (errors) => ({
     type: AUTH_SIGNIN_FAILED,
@@ -12,8 +12,7 @@ const signinFailed = (errors) => ({
 const signinSuccessful = (token) => ({
     type: AUTH_SIGNIN_SUCCESSFUL,
     payload: {
-        token,
-        errors: {}
+        token
     }
 });
 
@@ -32,19 +31,33 @@ const signinRequest = (email, password) => {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: formData
-        }).then(response => {
+        }).then(({ data: { token } }) => {
 
-            dispatch(
-                signinSuccessful(
-                    response.data.token
-                )
-            );
+            dispatch(signinSuccessful(token));
         }, ({ response }) => {
 
+            dispatch(signinFailed(response.data.errors));
+        });
+    }
+}
+
+const profileRequest = (token) => {
+
+    return dispatch => {
+
+        axios('http://localhost:8081/api/v1/profile', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(response => {
+
+
+        }, ({response: { data, status }}) => {
+
             dispatch(
-                signinFailed(
-                   response.data.errors
-                )
+                signinFailed(data.errors)
             );
         });
     }
@@ -52,5 +65,7 @@ const signinRequest = (email, password) => {
 
 export {
     signinRequest,
-    signinSuccessful
+    profileRequest,
+    signinSuccessful,
+    signinFailed
 }

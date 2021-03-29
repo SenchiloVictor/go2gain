@@ -2,18 +2,18 @@ import React from 'react';
 import Header from "./components/Header";
 import MainContent from "./components/MainContent";
 import {
-    BrowserRouter as Router
-}  from "react-router-dom";
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
 
-const app = () => {
-    return (
-        <Router>
-            <div className='app'>
-                <Header />
-                <MainContent />
-            </div>
-        </Router>
-    );
-}
+const App = () => (
+    <Router>
+        <div className='app'>
+            <Header />
+            <MainContent />
+        </div>
+    </Router>
+);
 
-export default app;
+export default App;

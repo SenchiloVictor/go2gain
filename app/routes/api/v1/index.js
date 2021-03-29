@@ -18,4 +18,10 @@ router.use(
     require('./front')
 );
 
+router.use(
+    '/profile',
+    authMiddleware,
+    require('./profile')
+)
+
 module.exports = router;

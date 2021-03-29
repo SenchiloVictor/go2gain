@@ -1,7 +1,9 @@
 const { verifyToken } = require('../services/auth/verifyToken');
 
 module.exports = (req, res, next) => {
+
     if ('undefined' === typeof req.get('authorization')) {
+
         return res.status(401).json({
             error: 'Token invalid or expired'
         });
