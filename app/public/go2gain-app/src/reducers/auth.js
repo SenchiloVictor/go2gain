@@ -1,8 +1,10 @@
 import {
     AUTH_SIGNIN_FAILED,
     AUTH_SIGNIN_PENDING,
-    AUTH_SIGNIN_SUCCESSFUL
-} from "../actions/actions";
+    AUTH_SIGNIN_SUCCESSFUL,
+    AUTH_SIGNUP_FAILED,
+    AUTH_SIGNUP_PENDING
+} from '../actions/actions';
 
 const initialState = {
     token: null,
@@ -37,7 +39,7 @@ const reducer = (state = initialState, action) => {
                     token: null,
                     ...action.payload
                 }
-            }
+            };
 
         case AUTH_SIGNIN_PENDING:
 
@@ -49,7 +51,29 @@ const reducer = (state = initialState, action) => {
                     token: null,
                     errors: {}
                 }
-            }
+            };
+
+        case AUTH_SIGNUP_PENDING :
+
+            return {
+                ...state,
+                ...{
+                    signupRequesting: true,
+                    signupComplete: null,
+                    errors: {}
+                }
+            };
+
+        case AUTH_SIGNUP_FAILED :
+
+            return {
+                ...state,
+                ...{
+                    signupRequesting: false,
+                    signupComplete: false,
+                    ...action.payload
+                }
+            };
 
         default:
 

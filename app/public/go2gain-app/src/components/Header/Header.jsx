@@ -28,7 +28,7 @@ const Header = () => {
                     </nav>
                 </section>
             </div>
-            {!authStatus
+            { !authStatus
                 ? <LoginArea/>
                 : ''
             }

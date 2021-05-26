@@ -7,7 +7,7 @@ const MainContent = () => {
     return (
         <section className='container main-content'>
             <div className='row'>
-                <Route path={`/`} component={MainPage} />
+                <Route path={ '/' } component={ MainPage } />
             </div>
         </section>
     );

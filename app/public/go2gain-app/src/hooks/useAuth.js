@@ -19,7 +19,7 @@ const useAuth = () => {
             dispatch(signinSuccessful(storageToken));
             dispatch(profileRequest(storageToken));
         }
-    }, [dispatch, storageToken]);
+    }, [ dispatch, storageToken ]);
 
     useEffect(() => {
 
@@ -28,7 +28,7 @@ const useAuth = () => {
             setToken(authToken);
             dispatch(profileRequest(authToken));
         }
-    }, [storageToken, authToken, setToken, dispatch]);
+    }, [ storageToken, authToken, setToken, dispatch ]);
 
     return { authStatus, authToken }
 }

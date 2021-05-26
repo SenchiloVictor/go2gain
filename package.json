@@ -1,5 +1,5 @@
 {
-  "name": "app-in4line",
+  "name": "go2gain",
   "version": "1.0.0",
   "description": "Go to gain",
   "main": "app/app.js",
@@ -26,5 +26,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SenchiloVictor/go2gain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SenchiloVictor/go2gain/issues"
+  },
+  "homepage": "https://github.com/SenchiloVictor/go2gain#readme"
 }

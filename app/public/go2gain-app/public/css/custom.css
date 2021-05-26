@@ -1,0 +1,10 @@
+.form-field {
+    position: relative;
+    padding-bottom: 16px;
+}
+.form-field .form-error {
+    position: absolute;
+    bottom: -5px;
+    left: 38px;
+    color: #ff7361;
+}

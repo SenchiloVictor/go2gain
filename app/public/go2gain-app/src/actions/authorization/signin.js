@@ -1,19 +1,22 @@
-import axios from "axios";
-import {AUTH_SIGNIN_FAILED, AUTH_SIGNIN_PENDING, AUTH_SIGNIN_SUCCESSFUL} from "../actions";
-import {useLocalStorage} from "../../hooks/useLocalStorage";
+import axios from 'axios';
+import { AUTH_SIGNIN_FAILED, AUTH_SIGNIN_PENDING, AUTH_SIGNIN_SUCCESSFUL } from '../actions';
 
 const signinFailed = (errors) => ({
     type: AUTH_SIGNIN_FAILED,
     payload: {
         errors
     },
-})
+});
 
 const signinSuccessful = (token) => ({
     type: AUTH_SIGNIN_SUCCESSFUL,
     payload: {
         token
     }
+});
+
+const signinPending = () => ({
+    type: AUTH_SIGNIN_PENDING
 });
 
 const signinRequest = (email, password) => {
@@ -36,7 +39,9 @@ const signinRequest = (email, password) => {
             dispatch(signinSuccessful(token));
         }, ({ response }) => {
 
-            dispatch(signinFailed(response.data.errors));
+            const { errors } = response.data;
+
+            dispatch(signinFailed(errors));
         });
     }
 }
@@ -67,5 +72,6 @@ export {
     signinRequest,
     profileRequest,
     signinSuccessful,
-    signinFailed
+    signinFailed,
+    signinPending
 }
