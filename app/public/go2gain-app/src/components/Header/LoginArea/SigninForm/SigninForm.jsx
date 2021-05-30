@@ -1,21 +1,19 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { emailRegex } from '../../../../helpers/regexp';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import get from 'lodash/get';
+import { useDispatch } from 'react-redux';
 import { signinRequest, signinPending } from '../../../../actions/authorization/signin';
 
 const SigninForm = () => {
 
     const dispatch = useDispatch();
-    const authErrors = useSelector(store => get(store, 'authReducer.errors', null), shallowEqual);
 
-    const handleSubmit = async (values) => {
-
-        const { email, password } = values;
+    const handleSubmit = async (values, { setErrors }) => {
 
         dispatch(signinPending());
-        dispatch(signinRequest(email, password));
+        dispatch(
+            signinRequest(values, setErrors)
+        );
     }
 
     const formValidator = values => {

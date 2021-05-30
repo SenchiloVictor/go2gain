@@ -10,8 +10,6 @@ const LoginArea = () => {
 
     const [ authForm, setAuthForm ] = useState('signin');
 
-    console.log(authForm);
-
     return (
             <div className={ loginPanelClass }>
                 <section className="container">

@@ -23,7 +23,8 @@ module.exports = (sequelize) => {
             allowNull: false
         }
     }, {
-        sequelize, modelName: 'channels_messages',
+        sequelize,
+        modelName: 'channels_messages',
         indexes: [
             { type: "FULLTEXT", name: 'channels_messages_idx', fields: ['message'] }
         ]

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_SIGNUP_FAILED, AUTH_SIGNUP_PENDING } from '../actions';
+import { AUTH_SIGNUP_FAILED, AUTH_SIGNUP_PENDING, AUTH_SIGNUP_SUCCESSFUL } from '../actions';
 
 const signupPending = () => ({
     type: AUTH_SIGNUP_PENDING
@@ -12,7 +12,17 @@ const signupFailed = (errors) => ({
     }
 });
 
-const signupRequest = (email, password, passwordConfirm) => {
+const signupSuccessful = (response) => ({
+    type: AUTH_SIGNUP_SUCCESSFUL,
+    payload: {
+        response
+    }
+});
+
+const signupRequest = (values, setErrors) => {
+
+    const { email, password, passwordConfirm } = values;
+
     const formData  = new FormData();
 
     formData.append('email', email);
@@ -27,14 +37,20 @@ const signupRequest = (email, password, passwordConfirm) => {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: formData
-        }).then(({ data: { token } }) => {
-            console.log('test');
-            // dispatch(signinSuccessful(token));
-        }, ({ response }) => {
+        }).then(({ data }) => {
 
-            const { errors } = response.data;
+            dispatch(
+                signupSuccessful(data)
+            );
+        }, ({ response: { data: { errors } } }) => {
 
-            dispatch(signupFailed(errors));
+            setErrors(
+                errors
+            );
+
+            dispatch(
+                signupFailed(errors)
+            );
         });
     }
 }

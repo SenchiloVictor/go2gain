@@ -3,12 +3,15 @@ import {
     AUTH_SIGNIN_PENDING,
     AUTH_SIGNIN_SUCCESSFUL,
     AUTH_SIGNUP_FAILED,
-    AUTH_SIGNUP_PENDING
+    AUTH_SIGNUP_PENDING,
+    AUTH_SIGNUP_SUCCESSFUL
 } from '../actions/actions';
 
 const initialState = {
     token: null,
     signinRequesting: false,
+    signupRequesting: false,
+    signupComplete: null,
     authorized: null,
     errors: {}
 };
@@ -23,6 +26,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 ...{
                     signinRequesting: false,
+                    signupRequesting: false,
                     authorized: true,
                     errors: {},
                     ...action.payload,
@@ -71,6 +75,17 @@ const reducer = (state = initialState, action) => {
                 ...{
                     signupRequesting: false,
                     signupComplete: false,
+                    ...action.payload
+                }
+            };
+
+        case AUTH_SIGNUP_SUCCESSFUL :
+
+            return {
+                ...state,
+                ...{
+                    signupRequesting: false,
+                    signupComplete: true,
                     ...action.payload
                 }
             };

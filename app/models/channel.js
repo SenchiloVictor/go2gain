@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
 
-const User = require('./user');
 class Channel extends Model {}
 
 module.exports = (sequelize) => {

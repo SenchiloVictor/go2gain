@@ -19,7 +19,9 @@ const signinPending = () => ({
     type: AUTH_SIGNIN_PENDING
 });
 
-const signinRequest = (email, password) => {
+const signinRequest = (values, setErrors) => {
+
+    const { email, password } = values;
 
     const formData  = new FormData();
 
@@ -37,11 +39,15 @@ const signinRequest = (email, password) => {
         }).then(({ data: { token } }) => {
 
             dispatch(signinSuccessful(token));
-        }, ({ response }) => {
+        }, ({ response: { data: { errors } } }) => {
 
-            const { errors } = response.data;
+            setErrors(
+                errors
+            );
 
-            dispatch(signinFailed(errors));
+            dispatch(
+                signinFailed(errors)
+            );
         });
     }
 }

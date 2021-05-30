@@ -1,27 +1,22 @@
-import { Field, Form, Formik } from 'formik';
-import get from 'lodash/get';
 import React from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 import { signupPending, signupRequest } from '../../../../actions/authorization/signup';
 import { emailRegex } from '../../../../helpers/regexp';
 
 const SignupForm = () => {
 
     const dispatch = useDispatch();
-    const authErrors = useSelector(store => get(store, 'authReducer.errors', null), shallowEqual);
 
     const handleSubmit = async (values, { setErrors }) => {
 
-        const { email, password, passwordConfirm } = values;
+        dispatch(
+            signupPending()
+        );
 
-        dispatch(signupPending());
-        dispatch(signupRequest(
-            email,
-            password,
-            passwordConfirm
-        ));
-
-        setErrors(authErrors);
+        dispatch(
+            signupRequest(values, setErrors)
+        );
     }
 
     const formValidator = values => {
@@ -65,7 +60,7 @@ const SignupForm = () => {
                         handleChange,
                         handleBlur,
                         isSubmitting,
-                        errors,
+                        errors
                     }) => (
                         <Form>
 

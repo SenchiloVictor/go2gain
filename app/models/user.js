@@ -18,6 +18,11 @@ module.exports = (sequelize) => {
             defaultValue: 0,
             allowNull: false
         },
+        phone_verified: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: 0,
+            allowNull: false
+        },
         email: {
             type: DataTypes.STRING(EMAIL_MAX_LENGTH),
             required: true,
@@ -35,14 +40,17 @@ module.exports = (sequelize) => {
             }
         },
         status: {
-            type: DataTypes.ENUM('active', 'blocked', 'disable'),
+            type: DataTypes.ENUM(['active', 'blocked', 'disable']),
             allowNull: false,
             defaultValue: 'active'
         }
     }, {
         sequelize, modelName: 'user',
         indexes: [
-            {unique: true, fields: ['email']},
+            {
+                unique: true,
+                fields: ['email']
+            },
             {
                 using: 'BTREE',
                 fields: [
