@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { AUTH_SIGNIN_FAILED, AUTH_SIGNIN_PENDING, AUTH_SIGNIN_SUCCESSFUL } from '../actions';
+import {
+    AUTH_SIGNIN_FAILED,
+    AUTH_SIGNIN_PENDING,
+    AUTH_SIGNIN_SUCCESSFUL
+} from '../actions';
 
 const signinFailed = (errors) => ({
     type: AUTH_SIGNIN_FAILED,
@@ -36,10 +40,12 @@ const signinRequest = (values, setErrors) => {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             data: formData
-        }).then(({ data: { token } }) => {
+        }).then(({data: {token}}) => {
 
-            dispatch(signinSuccessful(token));
-        }, ({ response: { data: { errors } } }) => {
+            dispatch(
+                signinSuccessful(token)
+            );
+        }, ({response: {data: {errors}}}) => {
 
             setErrors(
                 errors
@@ -64,8 +70,7 @@ const profileRequest = (token) => {
             }
         }).then(response => {
 
-
-        }, ({response: { data, status }}) => {
+        }, ({response: {data, status}}) => {
 
             dispatch(
                 signinFailed(data.errors)

@@ -10,13 +10,20 @@ const SigninForm = () => {
 
     const handleSubmit = async (values, { setErrors }) => {
 
-        dispatch(signinPending());
         dispatch(
-            signinRequest(values, setErrors)
+            signinPending()
+        );
+
+        dispatch(
+            signinRequest(
+                values,
+                setErrors
+            )
         );
     }
 
     const formValidator = values => {
+
         const errors = {};
 
         if (!values.email) {
@@ -28,6 +35,7 @@ const SigninForm = () => {
         }
 
         if (!values.password) {
+
             errors.password = 'Password is required';
         }
 
@@ -45,7 +53,7 @@ const SigninForm = () => {
                         password: '',
                         remember: false,
                     }}
-                    validate={ formValidator }
+                    validate={formValidator}
                     onSubmit={(values, actions) => handleSubmit(values, actions)}
                 >
                     {({
