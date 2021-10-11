@@ -2,24 +2,40 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { emailRegex } from '../../../../helpers/regexp';
 import { useDispatch } from 'react-redux';
-import { signinRequest, signinPending } from '../../../../actions/authorization/signin';
+// import { signinRequest, signinPending } from '../../../../actions/authorization/signin';
+import { serialize } from 'object-to-formdata';
+import useAxiosAsync from '../../../../hooks/useAxiosAsync';
 
 const SigninForm = () => {
 
     const dispatch = useDispatch();
 
+    const [signinResponse, signinRequest] = useAxiosAsync();
+
     const handleSubmit = async (values, { setErrors }) => {
 
-        dispatch(
-            signinPending()
-        );
+        await signinRequest({
+            method: 'POST',
+            url: `${process.env.REACT_APP_API_URL}/api/v1/auth/signin`,
+            data: serialize(values)
+        });
 
-        dispatch(
-            signinRequest(
-                values,
-                setErrors
-            )
-        );
+        return(() => {
+
+            signinRequest.request.cancelToken.cancel();
+        });
+        console.log(signinResponse);
+
+        // dispatch( 05644650
+        //     signinPending()
+        // );
+
+        // dispatch(
+        //     signinRequest(
+        //         values,
+        //         setErrors
+        //     )
+        // );
     }
 
     const formValidator = values => {

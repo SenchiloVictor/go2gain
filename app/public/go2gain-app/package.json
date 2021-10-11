@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "formik": "^2.2.8",
     "lodash": "^4.17.21",
+    "object-to-formdata": "^4.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-form": "^4.0.1",
