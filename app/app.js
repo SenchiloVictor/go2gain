@@ -10,11 +10,11 @@ const formidable = require('express-formidable');
 const cors = require('cors');
 
 process.env.PRIVATE_KEY = fs.readFileSync(
-    process.env.PRIVATE_KEY,
+    `${__dirname}/${process.env.PRIVATE_KEY}`,
     'utf8'
 );
 process.env.PUBLIC_KEY = fs.readFileSync(
-    process.env.PUBLIC_KEY,
+    `${__dirname}/${process.env.PUBLIC_KEY}`,
     'utf8'
 );
 
